@@ -3,6 +3,7 @@ package com.example.toolrental.controllers;
 
 import com.example.toolrental.entities.RentalRequest;
 import jakarta.transaction.Transactional;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
@@ -50,7 +51,7 @@ public class TestRentalController {
                 .exchange();
 
     }
-
+    @Test
     void TestCheckoutValidation() throws ParseException {
         SimpleDateFormat df = new SimpleDateFormat("MM/dd/yy");
         RentalRequest request = new RentalRequest("JAKR", df.parse("9/3/15"), 5, Double.valueOf(101));

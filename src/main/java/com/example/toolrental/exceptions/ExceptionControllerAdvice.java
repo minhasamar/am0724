@@ -1,5 +1,7 @@
 package com.example.toolrental.exceptions;
 
+import jakarta.validation.ConstraintViolation;
+import jakarta.validation.ConstraintViolationException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.support.DefaultMessageSourceResolvable;
@@ -24,6 +26,14 @@ public class ExceptionControllerAdvice {
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<?> handleMethodArgumentNotValidException(MethodArgumentNotValidException ex){
         List<String> errors = ex.getBindingResult().getAllErrors().stream().map(DefaultMessageSourceResolvable::getDefaultMessage)
+                .toList();
+        logger.error(errors.toString(), ex);
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errors);
+    }
+
+    @ExceptionHandler(ConstraintViolationException.class)
+    public ResponseEntity<?> handleConstraintViolationException(ConstraintViolationException ex){
+        List<String> errors = ex.getConstraintViolations().stream().map(ConstraintViolation::getMessage)
                 .toList();
         logger.error(errors.toString(), ex);
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errors);
