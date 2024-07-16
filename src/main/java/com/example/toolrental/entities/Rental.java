@@ -164,17 +164,16 @@ public class Rental {
     @Override
     public String toString() {
         SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
-        return  "Tool Code: " + tool.getToolCode() +
-                "Tool Type: " + toolCharge.getToolType() +
-                "Tool Brand: " + tool.getBrand() +
-                "CheckOut Date: " + dateFormat.format(checkOutDate) +
-                "Due Date: " + dateFormat.format(dueDate) +
-                "Tool Charge: $" + toolCharge +
-                "Rental Days: " + rentalDays +
-                "Charge Days: " + chargeDays +
-                "PreDiscountCharge: $" + preDiscountCharge +
-                "Discount Percent: " + discountPercent +"%"+
-                "Discount Amount: $" + discountAmount +
-                "Final Charge: $" + finalCharge ;
+        return  " Tool Code: " + tool.getToolCode() + "\n" +
+                " Tool Type: " + toolCharge.getToolType() + "\n" +
+                " Tool Brand: " + tool.getBrand() + "\n" +
+                " CheckOut Date: " + dateFormat.format(checkOutDate) + "\n" +
+                " Due Date: " + dateFormat.format(dueDate) + "\n" +
+                " Rental Days: " + rentalDays + "\n" +
+                " Charge Days: " + chargeDays + "\n" +
+                " PreDiscountCharge: $" + preDiscountCharge + "\n" +
+                " Discount Percent: " + discountPercent +"%"+ "\n" +
+                " Discount Amount: $" + discountAmount + "\n" +
+                " Final Charge: $" + finalCharge;
     }
 }

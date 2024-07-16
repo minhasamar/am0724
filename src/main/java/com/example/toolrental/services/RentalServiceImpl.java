@@ -26,20 +26,21 @@ public class RentalServiceImpl implements RentalService {
 
     @Override
     public Rental saveRental(RentalRequest request) {
-        Rental rental = null;
+        Rental rental = new Rental();
         try{
-            Tool tool = toolService.findToolByCode(request.toolCode());
+            Tool tool = toolService.findToolByCode(request.toolCode);
             rental.setTool(tool);
             ToolCharge toolCharge = toolChargeService.findToolChargeByToolType(tool.getToolType());
             rental.setToolCharge(toolCharge);
-            rental.setRentalDays(request.rentalDays());
-            rental.setCheckOutDate(request.checkOutDate());
-            rental.setDiscountPercent(request.discountPercent());
+            rental.setRentalDays(request.rentalDays);
+            rental.setCheckOutDate(request.checkOutDate);
+            rental.setDiscountPercent(request.discountPercent);
             //calculations
             Calendar cal = Calendar.getInstance();
-            cal.setTime(request.checkOutDate());
-            Integer chargeDays = 0;
-            for(int i = 0; i<request.rentalDays(); i++){
+            cal.setTime(request.checkOutDate);
+            Integer chargeDays = 0; // initializing
+            // Iterating through the duration of rental time period and calculating charges
+            for(int i = 0; i<request.rentalDays; i++){
                 cal.add(Calendar.DATE, 1);
                 if((toolCharge.getWeekendCharge() && cal.get(Calendar.DAY_OF_WEEK) == Calendar.SATURDAY)
                 || (toolCharge.getWeekendCharge() && cal.get(Calendar.DAY_OF_WEEK) == Calendar.SUNDAY)
@@ -60,7 +61,7 @@ public class RentalServiceImpl implements RentalService {
             double temp = chargeDays*toolCharge.getDailyCharge();
             double rounded = Math.ceil(temp * 2) / 2;
             rental.setPreDiscountCharge(rounded);
-            temp = (rental.getPreDiscountCharge()* request.discountPercent())/100;
+            temp = (rental.getPreDiscountCharge()* request.discountPercent)/100;
             rounded = Math.ceil(temp * 2) / 2;
             rental.setDiscountAmount(rounded);
             rental.setFinalCharge(rental.getPreDiscountCharge() - rental.getDiscountAmount());

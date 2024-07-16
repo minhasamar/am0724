@@ -23,7 +23,7 @@ public class ToolController {
         return toolService.findAll();
     }
 
-    @GetMapping("{code}")
+    @GetMapping("{toolCode}")
     public Tool getToolByCode(@PathVariable String toolCode) {
         return toolService.findToolByCode(toolCode);
     }
